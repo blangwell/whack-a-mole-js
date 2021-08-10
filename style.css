@@ -1,10 +1,37 @@
 body {
     background-image: url("assets/grass-bg3.png");
     background-size: cover;
+    cursor: url("assets/mallet-small.png"), auto;
+}
+
+body, .game-ui-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.game-ui-time-whacks {
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+}
+
+button {
+    background-color: darkgreen;
+    width: 150px;
+    height: 40px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: green;
+}
+
+.page-title, .game-ui-container, button {
+    font-family: 'Luckiest Guy', cursive;
+    color: white;
+    text-shadow: 2px 2px #000000;
 }
 
 .hole-container {

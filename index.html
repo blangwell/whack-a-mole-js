@@ -4,16 +4,23 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="style.css">
 	<title>Whack a Mole JS</title>
 </head>
 <body>
-	<h1>Whack a Mole JS</h1>
+	<h1 class="page-title">Whack a Mole JS</h1>
 	<div class="game-container">
-		<h3 class="game-ui">Time: <span id="time-remaining"></span></h3>
-		<h3 class="game-ui">Whacks: <span id="whack-count"></span></h3>
-		<h2 class="game-ui" id="game-over-message">Game Over</h2>
-		<button class="game-ui" id="start-button">Start</button>
+		<div class="game-ui-container">
+			<div class="game-ui-time-whacks">
+				<h3 class="game-ui">Time: <span id="time-remaining">0</span>&nbsp;</h3>
+				<h3 class="game-ui">Whacks: <span id="whack-count">0</span></h3>
+			</div>
+			<h2 class="game-ui" id="game-over-message">Game Over</h2>
+			<button class="game-ui" id="start-button">Start</button>
+		</div>
 		<div class="hole-container"></div>
 	</div>
 	<script src="script.js"></script>
