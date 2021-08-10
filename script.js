@@ -5,8 +5,8 @@ const remainingTimeDisplay = document.querySelector("#time-remaining");
 const startButton = document.querySelector("#start-button");
 const whackCountDisplay = document.querySelector("#whack-count");
 
-const hitSound = new Audio("hit-3.wav");
-const missSound = new Audio("cancel-3.wav");
+const hitSound = new Audio("assets/hit-3.wav");
+const missSound = new Audio("assets/cancel-3.wav");
 
 let gameOver = false;
 let gameLoop;

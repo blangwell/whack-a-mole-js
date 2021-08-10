@@ -1,11 +1,27 @@
+body {
+    background-image: url("assets/grass-bg3.png");
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hole-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 .hole {
     display: inline-block;
-    width: 200px;
-    height: 200px;
-    border: 2px solid black;
+    width: 150px;
+    height: 150px;
+    border: 2px solid darkgreen;
+    background-image: url("assets/hole-transparent.png");
+    background-size: cover;
 }
 
 .mole {
-    background-image: url("mole-transparent.png");
+    background-image: url("assets/mole-transparent.png"), url("assets/hole-transparent.png");
     background-size: cover;
 }
