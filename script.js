@@ -6,14 +6,15 @@ const startButton = document.querySelector("#start-button");
 const gameOverMessage = document.querySelector("#game-over-message");
 
 let gameOver = false;
+let gameLoop;
 let numHoles = 8;
 let time;
 let whacks = 0;
-let gameLoop;
 
 function startGame() {
 	gameOver = false;
 	gameOverMessage.hidden = true;
+	startButton.hidden = true;
 	time = 10;
 	remainingTimeDisplay.innerText = time;
 	whacks = 0;
@@ -22,16 +23,27 @@ function startGame() {
 	spawnMole(1000);
 }
 
-function whack(target) {
-	if (target.classList.contains("mole")) {
-		whacks++;
-		whackCountDisplay.innerText = whacks;
-		target.classList.remove("mole");
-		let hitSound = new Audio("hit-3.wav");
-		hitSound.play();
-	} else {
-		let missSound = new Audio("cancel-3.wav");
-		missSound.play();
+function endGame() {
+	gameOver = true;
+	gameOverMessage.hidden = false;
+	clearInterval(gameLoop);
+	startButton.hidden = false;
+	while (holeContainer.firstChild) {
+		holeContainer.removeChild(holeContainer.firstChild);
+	}
+}
+
+function generateHoles(numHoles) {
+	let newHole;
+	for (let i = 0; i < numHoles; i++) {
+		newHole = document.createElement("div");
+		newHole.classList.add("hole");
+		newHole.id = `hole-${i}`;
+		newHole.onclick = e => {
+			console.log(e.target.id);
+			whack(e.target);
+		};
+		holeContainer.append(newHole);
 	}
 }
 
@@ -52,48 +64,31 @@ function spawnMole(rate) {
 	}, rate);
 }
 
-function checkTimer() {
-	if (time === 0) {
-		endGame();
-	}
-}
-
-function endGame() {
-	gameOver = true;
-	gameOverMessage.hidden = false;
-	clearInterval(gameLoop);
-	startButton.hidden = false;
-	while (holeContainer.firstChild) {
-		holeContainer.removeChild(holeContainer.firstChild);
-	}
-}
-
-
-function generateHoles(numHoles) {
-	let newHole;
-	for (let i = 0; i < numHoles; i++) {
-		newHole = document.createElement("div");
-		newHole.classList.add("hole");
-		newHole.id = `hole-${i}`;
-		newHole.onclick = e => {
-			console.log(e.target.id);
-			whack(e.target);
-		};
-		holeContainer.append(newHole);
+function whack(target) {
+	if (target.classList.contains("mole")) {
+		whacks++;
+		whackCountDisplay.innerText = whacks;
+		target.classList.remove("mole");
+		let hitSound = new Audio("hit-3.wav");
+		hitSound.play();
+	} else {
+		let missSound = new Audio("cancel-3.wav");
+		missSound.play();
 	}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
 	startButton.addEventListener("click", () => {
-		startButton.hidden = true;
 		startGame();
+
 		gameLoop = setInterval(() => {
 			if (!gameOver) {
 				spawnMole(900);
 				time--;
 				remainingTimeDisplay.innerText = time;
-				checkTimer();
+				if (time === 0) endGame();
 			}
 		}, 1000);
+
 	});
 });
