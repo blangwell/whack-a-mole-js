@@ -1,9 +1,12 @@
 const holeContainer = document.querySelector(".hole-container");
 const gameContainer = document.querySelector(".game-container");
-const remainingTimeDisplay = document.querySelector("#time-remaining");
-const whackCountDisplay = document.querySelector("#whack-count");
-const startButton = document.querySelector("#start-button");
 const gameOverMessage = document.querySelector("#game-over-message");
+const remainingTimeDisplay = document.querySelector("#time-remaining");
+const startButton = document.querySelector("#start-button");
+const whackCountDisplay = document.querySelector("#whack-count");
+
+const hitSound = new Audio("hit-3.wav");
+const missSound = new Audio("cancel-3.wav");
 
 let gameOver = false;
 let gameLoop;
@@ -13,20 +16,19 @@ let whacks = 0;
 
 function startGame() {
 	gameOver = false;
+	time = 10;
+	whacks = 0;
 	gameOverMessage.hidden = true;
 	startButton.hidden = true;
-	time = 10;
 	remainingTimeDisplay.innerText = time;
-	whacks = 0;
 	whackCountDisplay.innerText = whacks;
 	generateHoles(numHoles);
-	spawnMole(1000);
 }
 
 function endGame() {
 	gameOver = true;
-	gameOverMessage.hidden = false;
 	clearInterval(gameLoop);
+	gameOverMessage.hidden = false;
 	startButton.hidden = false;
 	while (holeContainer.firstChild) {
 		holeContainer.removeChild(holeContainer.firstChild);
@@ -50,13 +52,13 @@ function generateHoles(numHoles) {
 function getRandomHoleId(numHoles) {
 	let max = numHoles;
 	let randomHole = Math.floor(Math.random() * (max - 1));
-	console.log(`spawning at hole-${randomHole}`)
 	return `hole-${randomHole}`;
 }
 
 function spawnMole(rate) {
 	let moleHole = document.getElementById(getRandomHoleId(numHoles));
 	moleHole.classList.add("mole");
+
 	setTimeout(() => {
 		if (moleHole.classList.contains("mole")) {
 			moleHole.classList.remove("mole");
@@ -69,10 +71,8 @@ function whack(target) {
 		whacks++;
 		whackCountDisplay.innerText = whacks;
 		target.classList.remove("mole");
-		let hitSound = new Audio("hit-3.wav");
 		hitSound.play();
 	} else {
-		let missSound = new Audio("cancel-3.wav");
 		missSound.play();
 	}
 }
@@ -80,7 +80,6 @@ function whack(target) {
 document.addEventListener("DOMContentLoaded", () => {
 	startButton.addEventListener("click", () => {
 		startGame();
-
 		gameLoop = setInterval(() => {
 			if (!gameOver) {
 				spawnMole(900);
@@ -89,6 +88,5 @@ document.addEventListener("DOMContentLoaded", () => {
 				if (time === 0) endGame();
 			}
 		}, 1000);
-
 	});
 });
