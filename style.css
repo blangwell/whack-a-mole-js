@@ -1,7 +1,7 @@
 body {
     background-image: url("assets/grass-bg3.png");
     background-size: cover;
-    cursor: url("assets/mallet-small.png"), auto;
+    /* cursor: url("assets/mallet-square-small.png"), auto; */
 }
 
 body, .game-ui-container {
@@ -43,7 +43,8 @@ button:hover {
     display: inline-block;
     width: 150px;
     height: 150px;
-    border: 2px solid darkgreen;
+    /* border: 2px solid darkgreen; */
+    border-radius: 10%;
     background-image: url("assets/hole-transparent.png");
     background-size: cover;
 }
